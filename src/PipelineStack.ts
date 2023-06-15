@@ -23,6 +23,7 @@ export class PipelineStack extends Stack {
 
     const pipeline = this.pipeline(props);
 
+    console.log(props.configuration.targetEnvironment);
     const mainStage = new MainStage(this, 'org-trail-forwarding', {
       env: props.configuration.targetEnvironment,
       configuration: props.configuration,

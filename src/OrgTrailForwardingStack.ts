@@ -13,7 +13,7 @@ export interface OrgTrailForwardingStackProps extends StackProps, Configurable {
 
 export class OrgTrailForwardingStack extends Stack {
   constructor(scope: Construct, id: string, props: OrgTrailForwardingStackProps) {
-    super(scope, id);
+    super(scope, id, props);
 
     const key = this.setupKmsKeyForSqsQueue(props);
     const queue = this.setupQueue(props, key);

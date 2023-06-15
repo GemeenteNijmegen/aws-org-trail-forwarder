@@ -6,7 +6,7 @@ export interface MainStageProps extends StageProps, Configurable {}
 
 export class MainStage extends Stage {
   constructor(scope: any, id: string, props: MainStageProps) {
-    super(scope, id);
+    super(scope, id, props);
 
     new OrgTrailForwardingStack(this, 'stack', {
       env: props.configuration.targetEnvironment,
