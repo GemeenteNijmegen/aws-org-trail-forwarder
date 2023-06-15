@@ -9,6 +9,7 @@ export class MainStage extends Stage {
     super(scope, id);
 
     new OrgTrailForwardingStack(this, 'stack', {
+      env: props.configuration.targetEnvironment,
       configuration: props.configuration,
     });
 
