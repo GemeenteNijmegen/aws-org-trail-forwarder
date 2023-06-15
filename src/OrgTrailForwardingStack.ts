@@ -16,7 +16,12 @@ export class OrgTrailForwardingStack extends Stack {
     super(scope, id);
 
     const key = this.setupKmsKeyForSqsQueue(props);
+    const queue = this.setupQueue(props, key);
+    this.setupUserForSqsQueue(queue, key);
 
+  }
+
+  setupQueue(props: OrgTrailForwardingStackProps, key: kms.Key) {
     const queue = new sqs.Queue(this, 'queue', {
       enforceSSL: true,
       retentionPeriod: Duration.days(1), // Do not keep messages for longer than 1 day
@@ -37,8 +42,7 @@ export class OrgTrailForwardingStack extends Stack {
       },
     }));
 
-    this.setupUserForSqsQueue(queue, key);
-
+    return queue;
   }
 
   setupUserForSqsQueue(queue: sqs.Queue, key: kms.Key) {
@@ -82,7 +86,7 @@ export class OrgTrailForwardingStack extends Stack {
         'kms:Decrypt',
       ],
       principals: [new iam.ServicePrincipal('s3.amazonaws.com')],
-      resources: [key.keyArn],
+      resources: ['*'],
       conditions: {
         'ForAllValues:ArnLike': {
           'aws:SourceArn': props.configuration.allowPublishFromArns,
