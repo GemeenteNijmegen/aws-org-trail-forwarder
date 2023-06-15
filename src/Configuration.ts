@@ -33,7 +33,6 @@ export interface Configuration {
    */
   targetEnvironment: Environment;
 
-
   /**
    * A list of arns that are allowed to publish to the queue
    * that is setup in this project. Wildcards are allowed
