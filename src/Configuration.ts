@@ -36,7 +36,8 @@ export interface Configuration {
 
   /**
    * A list of arns that are allowed to publish to the queue
-   * that is setup in this project.
+   * that is setup in this project. Wildcards are allowed
+   * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_ARN
    */
   allowPublishFromArns: string[];
 

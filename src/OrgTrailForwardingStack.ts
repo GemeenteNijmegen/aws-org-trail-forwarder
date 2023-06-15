@@ -25,8 +25,13 @@ export class OrgTrailForwardingStack extends Stack {
       sid: 'AllowArnsToSendMessages',
       effect: iam.Effect.ALLOW,
       actions: ['sqs:SendMessage'],
-      principals: props.configuration.allowPublishFromArns.map(arn => new iam.ArnPrincipal(arn)),
+      principals: [new iam.ServicePrincipal('s3.amazonaws.com')],
       resources: [queue.queueArn],
+      conditions: {
+        'ForAllValues:ArnLike': {
+          'aws:SourceArn': props.configuration.allowPublishFromArns,
+        },
+      },
     }));
 
   }

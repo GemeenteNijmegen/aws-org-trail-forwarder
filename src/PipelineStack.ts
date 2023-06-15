@@ -37,7 +37,7 @@ export class PipelineStack extends Stack {
       connectionArn: props.configuration.codeStarConnectionArn,
     });
 
-    const pipeline = new pipelines.CodePipeline(this, `org-trail-forwarding-${this.branchName}`, {
+    const pipeline = new pipelines.CodePipeline(this, `pipeline-${this.branchName}`, {
       pipelineName: `org-trail-forwarding-${this.branchName}-pipeline`,
       crossAccountKeys: true,
       synth: new pipelines.ShellStep('Synth', {
