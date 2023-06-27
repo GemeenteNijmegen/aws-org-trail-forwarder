@@ -38,7 +38,12 @@ export interface Configuration {
    * that is setup in this project. Wildcards are allowed
    * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_ARN
    */
-  allowPublishFromArns: string[];
+  allowPublishFromArn: string;
+
+  /**
+   * The account ID that contains the orgtrail bucket
+   */
+  logArchiveAccount: string;
 
 }
 
@@ -48,9 +53,8 @@ export const configurations: { [key: string]: Configuration } = {
     codeStarConnectionArn: Statics.gnBuildCodeStarConnectionArn,
     deploymentEnvironment: Statics.deploymentEnvironment,
     targetEnvironment: Statics.irvnEnvironment,
-    allowPublishFromArns: [
-      '',
-    ],
+    allowPublishFromArn: 'arn:aws:s3:::aws-controltower-logs-530584348862-eu-central-1',
+    logArchiveAccount: '530584348862',
   },
 };
 

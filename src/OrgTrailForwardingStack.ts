@@ -36,8 +36,11 @@ export class OrgTrailForwardingStack extends Stack {
       principals: [new iam.ServicePrincipal('s3.amazonaws.com')],
       resources: [queue.queueArn],
       conditions: {
-        'ForAllValues:ArnLike': {
-          'aws:SourceArn': props.configuration.allowPublishFromArns,
+        ArnLike: {
+          'aws:SourceArn': props.configuration.allowPublishFromArn,
+        },
+        StringEquals: {
+          'aws:SourceAccount': props.configuration.logArchiveAccount,
         },
       },
     }));
@@ -83,13 +86,16 @@ export class OrgTrailForwardingStack extends Stack {
       effect: iam.Effect.ALLOW,
       actions: [
         'kms:GenerateDataKey*',
-        'kms:Decrypt',
+        'kms:Encrypt',
       ],
       principals: [new iam.ServicePrincipal('s3.amazonaws.com')],
       resources: ['*'],
       conditions: {
-        'ForAllValues:ArnLike': {
-          'aws:SourceArn': props.configuration.allowPublishFromArns,
+        ArnLike: {
+          'aws:SourceArn': props.configuration.allowPublishFromArn,
+        },
+        StringEquals: {
+          'aws:SourceAccount': props.configuration.logArchiveAccount,
         },
       },
     }));
